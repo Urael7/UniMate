@@ -1,17 +1,19 @@
+// main.dart
 import 'package:flutter/material.dart';
 import 'presentation/screens/authpages/login.dart';
 import 'presentation/screens/authpages/signup.dart';
 import 'presentation/screens/home pages/home.dart'; // HomePage
 import 'presentation/screens/home pages/home1.dart'; // Home1Page
 import 'presentation/screens/home pages/home2.dart'; // Home2Page (New Page)
+import 'package:frontend/presentation/screens/Budget_Tracker/add_transaction_page.dart';
+import 'package:frontend/presentation/screens/Budget_Tracker/budget_home_page.dart';
+import 'package:frontend/presentation/screens/Budget_Tracker/spending_analysis_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,6 +30,9 @@ class MyApp extends StatelessWidget {
         '/home2': (context) => const Home2Page(), // Route for Home2Page
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignUpPage(),
+        '/': (context) => BudgetScreen(),
+        '/add': (context) => AddTransactionPage(),
+        '/analysis': (context) => SpendingAnalysisPage(),
       },
     );
   }
