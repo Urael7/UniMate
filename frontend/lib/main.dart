@@ -5,6 +5,8 @@ import 'package:frontend/presentation/screens/Budget_Tracker/spending_analysis_p
 import 'package:provider/provider.dart';
 import 'package:frontend/presentation/screens/Budget_Tracker/transaction_model.dart';
 import 'package:frontend/presentation/screens/Budget_Tracker/placeholder_home_screen.dart';
+// ✅ Import your ProfilePage
+// ✅ Import LogoutPage
 
 void main() {
   runApp(
@@ -21,8 +23,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Unimate',
       debugShowCheckedModeBanner: false,
-      title: 'Mini Finance App',
+
       theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: '/',
       onGenerateRoute: (settings) {
