@@ -18,20 +18,28 @@ app.get("/", (req, res) => {
 connectDB();
 
 
+
   // === Import Routes ===
 const authRoutes = require("./src/routes/authRoutes");
 const eventRoutes = require("./src/routes/eventRoutes");
 const expenseRoutes = require("./src/routes/expenseRoutes");
 const noticeRoutes = require("./src/routes/noticeRoutes");
 const taskRoutes = require("./src/routes/taskRoutes");
+const isAuthenticated = require('./middleware/isAuthenticated');
+const errorHandler = require('./middleware/errorHandler');
 
 // === Use Routes ===
 app.use("/api/user", authRoutes);
-app.use("/api/events", eventRoutes);
-app.use("/api/expenses", expenseRoutes);
+app.use("/api/events",  eventRoutes);
+app.use("/api/expenses",expenseRoutes);
 app.use("/api/notices", noticeRoutes);
-app.use("/api/tasks", taskRoutes);
+app.use("/api/tasks",  taskRoutes);
+
 
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// app.use(errorHandler);
+
+module.exports = app;
