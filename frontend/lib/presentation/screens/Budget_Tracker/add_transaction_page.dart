@@ -1,97 +1,180 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AddTransactionPage extends StatefulWidget {
+  final Function(String title, String date, String amount, bool isIncome)
+  onAddTransaction;
+
+  const AddTransactionPage({super.key, required this.onAddTransaction});
+
   @override
-  _AddTransactionPageState createState() => _AddTransactionPageState();
+  State<AddTransactionPage> createState() => _AddTransactionPageState();
 }
 
 class _AddTransactionPageState extends State<AddTransactionPage> {
-  bool isExpense = true;
-  String selectedCategory = 'Food';
-  final amountController = TextEditingController();
-  final descriptionController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+  String _selectedType = 'Monthly';
+  bool _isIncome = false;
+
+  void _handleAddTransaction() {
+    final title = _titleController.text.trim();
+    final amountStr = _amountController.text.trim();
+    final date = DateFormat.MMMd().format(DateTime.now());
+
+    if (title.isNotEmpty && amountStr.isNotEmpty) {
+      final double amount = double.tryParse(amountStr) ?? 0;
+      final isOverspending = !_isIncome && amount > 2000;
+
+      if (isOverspending) {
+        showDialog(
+          context: context,
+          builder:
+              (context) => AlertDialog(
+                title: const Text('Overspending Warning'),
+                content: const Text(
+                  'This expense exceeds your total budget. Are you sure you want to proceed?',
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      widget.onAddTransaction(
+                        title,
+                        date,
+                        amountStr,
+                        _isIncome,
+                      );
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Proceed'),
+                  ),
+                ],
+              ),
+        );
+      } else {
+        widget.onAddTransaction(title, date, amountStr, _isIncome);
+        Navigator.pop(context);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Transaction', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.close, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+        title: const Center(
+          child: Text(
+            'Add Transaction',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            TextField(
+              controller: _titleController,
+              decoration: const InputDecoration(
+                labelText: 'Title',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: _amountController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'Amount',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                const Text("Type: "),
+                const SizedBox(width: 10),
+                ChoiceChip(
+                  label: const Text('Monthly'),
+                  selected: _selectedType == 'Monthly',
+                  onSelected: (_) {
+                    setState(() {
+                      _selectedType = 'Monthly';
+                    });
+                  },
+                ),
+                const SizedBox(width: 10),
+                ChoiceChip(
+                  label: const Text('One-time'),
+                  selected: _selectedType == 'One-time',
+                  onSelected: (_) {
+                    setState(() {
+                      _selectedType = 'One-time';
+                    });
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                const Text("Category: "),
+                const SizedBox(width: 10),
+                ChoiceChip(
+                  label: const Text('Income'),
+                  selected: _isIncome,
+                  onSelected: (_) {
+                    setState(() {
+                      _isIncome = true;
+                    });
+                  },
+                ),
+                const SizedBox(width: 10),
+                ChoiceChip(
+                  label: const Text('Expense'),
+                  selected: !_isIncome,
+                  onSelected: (_) {
+                    setState(() {
+                      _isIncome = false;
+                    });
+                  },
+                ),
+              ],
+            ),
+            const Spacer(),
             Row(
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => setState(() => isExpense = true),
+                    onPressed: () => Navigator.pop(context),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          isExpense ? Colors.cyan : Colors.grey.shade300,
-                      foregroundColor: isExpense ? Colors.white : Colors.black,
+                      backgroundColor: Colors.grey.shade400,
+                      minimumSize: const Size(double.infinity, 50),
                     ),
-                    child: Text('Expense'),
+                    child: const Text('Cancel'),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => setState(() => isExpense = false),
+                    onPressed: _handleAddTransaction,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          isExpense ? Colors.grey.shade300 : Colors.cyan,
-                      foregroundColor: isExpense ? Colors.black : Colors.white,
+                      backgroundColor: Colors.blueAccent,
+                      minimumSize: const Size(double.infinity, 50),
                     ),
-                    child: Text('Income'),
+                    child: const Text('Add Transaction'),
                   ),
                 ),
               ],
-            ),
-            SizedBox(height: 20),
-            Text('Amount'),
-            TextField(
-              controller: amountController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(prefixText: '\$', hintText: '0.00'),
-            ),
-            SizedBox(height: 20),
-            Text('Category'),
-            DropdownButton<String>(
-              value: selectedCategory,
-              isExpanded: true,
-              items:
-                  ['Food', 'Grocery Store', 'Netflix', 'Rent', 'Utilities']
-                      .map(
-                        (cat) => DropdownMenuItem(value: cat, child: Text(cat)),
-                      )
-                      .toList(),
-              onChanged: (val) => setState(() => selectedCategory = val!),
-            ),
-            SizedBox(height: 20),
-            Text('Description (Optional)'),
-            TextField(
-              controller: descriptionController,
-              decoration: InputDecoration(hintText: 'Grocery Shopping'),
-            ),
-            Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                // Handle save transaction
-                Navigator.pop(context);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                minimumSize: Size(double.infinity, 50),
-              ),
-              child: Text('Save'),
             ),
           ],
         ),
