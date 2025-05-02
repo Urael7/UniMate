@@ -119,6 +119,7 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 child: TextField(
+                  //controller:  emailController,
                   decoration: InputDecoration(
                     hintText: 'Enter Email',
                     hintStyle: const TextStyle(
@@ -155,6 +156,7 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 child: TextField(
+                  // controller: ,
                   obscureText: true,
                   decoration: InputDecoration(
                     hintText: 'Enter Password',
