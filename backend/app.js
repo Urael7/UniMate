@@ -1,40 +1,44 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config();
+require("dotenv").config();// ← Load .env variables
+const passport = require("passport");
+const connectDB = require('./src/config/db');
 
 const app = express();
 
-// ─── MIDDLEWARES ────────────────────────────────────────────────────────────
-// Enable CORS
-app.use(cors());
-// Parse incoming JSON bodies
-app.use(express.json());
+// ─── PASSPORT CONFIGURATION ───────────────────────────────────────────────────
+require("./src/config/passport"); // ← Import Google OAuth strategy
 
-// ─── ROUTES ─────────────────────────────────────────────────────────────────
+// Middleware
+app.use(passport.initialize()); // ← Initialize Passport
+app.use(cors()); // ← Enable CORS
+app.use(express.json()); // ← Parse incoming JSON
 
-const authRoutes = require("./routes/authRoutes");
-const eventRoutes = require("./routes/eventRoutes");
-
-// ─── MOUNT ROUTES ──────────────────────────────────────────────────────────────
-// Auth endpoints:  /api/auth/signup, /api/auth/login
-app.use("/api/auth", authRoutes);
-// Event endpoints (protected by your auth middleware inside eventRoutes)
-app.use("/api/events", eventRoutes);
-
-// Basic health‐check route
+// Basic route to check if server works
 app.get("/", (req, res) => {
-  res.send("Backend is working ✅");
+  res.send("Backend is running ✅");
 });
 
-// ─── DATABASE CONNECTION ─────────────────────────────────────────────────────
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected ✅"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+// ─── DATABASE CONNECTION 
+connectDB();
 
-// ─── START SERVER ────────────────────────────────────────────────────────────
+
+  // === Import Routes ===
+const authRoutes = require("./src/routes/authRoutes");
+const eventRoutes = require("./src/routes/eventRoutes");
+const expenseRoutes = require("./src/routes/expenseRoutes");
+const noticeRoutes = require("./src/routes/noticeRoutes");
+const taskRoutes = require("./src/routes/taskRoutes");
+const resourceRoutes = require("./src/routes/resourceRoutes");
+// === Use Routes ===
+app.use("/api/user", authRoutes);
+app.use("/api/events", eventRoutes);
+app.use("/api/expenses", expenseRoutes);
+app.use("/api/notices", noticeRoutes);
+app.use("/api/tasks", taskRoutes);
+app.use("/api/resources", resourceRoutes);
+// Start server
+
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () =>
-  console.log(`Server running on http://localhost:${PORT}`)
-);
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
