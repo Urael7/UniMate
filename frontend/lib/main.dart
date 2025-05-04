@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:frontend/presentation/screens/Budget_Tracker/add_transaction_page.dart';
 import 'package:frontend/presentation/screens/Budget_Tracker/budget_home_page.dart';
 import 'package:frontend/presentation/screens/Budget_Tracker/spending_analysis_page.dart';
+import 'package:frontend/presentation/screens/authpages/login.dart';
+import 'package:frontend/presentation/screens/core/dashboard_page.dart';
+import 'package:frontend/presentation/screens/core/main_layout.dart';
 import 'package:provider/provider.dart';
 import 'package:frontend/presentation/screens/Budget_Tracker/transaction_model.dart';
 import 'package:frontend/presentation/screens/Budget_Tracker/placeholder_home_screen.dart';
-// ✅ Import your ProfilePage
-// ✅ Import LogoutPage
 
 void main() {
   runApp(
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         Widget page;
         switch (settings.name) {
           case '/':
-            page = const BudgetScreen();
+            page = LoginPage();
             break;
           case '/add':
             page = AddTransactionPage(

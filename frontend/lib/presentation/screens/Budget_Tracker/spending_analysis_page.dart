@@ -33,6 +33,7 @@ class _SpendingAnalysisPageState extends State<SpendingAnalysisPage> {
         for (int i = 0; i < model.transactions.length; i++) {
           final tx = model.transactions[i];
           if (!tx["isIncome"]) {
+            // ignore: unused_local_variable
             DateTime date;
             try {
               // Handle both ISO 8601 (yyyy-MM-dd) and MMMd (Apr 12) formats
