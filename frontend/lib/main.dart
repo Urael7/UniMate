@@ -34,14 +34,13 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Unimate',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/dashboard', // Set initial route based on your preference
+      initialRoute: '/home', // Set initial route based on your preference
       onGenerateRoute: (settings) {
         Widget page;
         switch (settings.name) {
@@ -57,12 +56,13 @@ class MyApp extends StatelessWidget {
           case '/':
             page = const BudgetScreen();
             break;
-          case '/add':
+          case '/profile':
             page = AddTransactionPage(
-              onAddTransaction: Provider.of<TransactionModel>(
-                context,
-                listen: false,
-              ).addTransaction,
+              onAddTransaction:
+                  Provider.of<TransactionModel>(
+                    context,
+                    listen: false,
+                  ).addTransaction,
             );
             break;
           case '/analysis':
