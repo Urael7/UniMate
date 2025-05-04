@@ -53,6 +53,12 @@ class MyApp extends StatelessWidget {
           case '/assignments':
             page = AssignmentsPage();
             break;
+          case '/login': // Add LoginPage route
+            page = const LoginPage();
+            break;
+          case '/signup': // Add SignUpPage route
+            page = const SignUpPage();
+            break;
           case '/':
             page = const BudgetScreen();
             break;
