@@ -5,8 +5,8 @@ import 'package:frontend/presentation/screens/Budget_Tracker/spending_analysis_p
 import 'package:provider/provider.dart';
 import 'package:frontend/presentation/screens/Budget_Tracker/transaction_model.dart';
 import 'package:frontend/presentation/screens/Budget_Tracker/placeholder_home_screen.dart';
-// ✅ Import your ProfilePage
-// ✅ Import LogoutPage
+import 'package:frontend/presentation/screens/event_page/post_event_page.dart';
+import 'package:frontend/presentation/screens/event_page/upcoming_event_page.dart';
 
 void main() {
   runApp(
@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Unimate',
       debugShowCheckedModeBanner: false,
-
       theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: '/',
       onGenerateRoute: (settings) {
@@ -48,6 +47,12 @@ class MyApp extends StatelessWidget {
             break;
           case '/home':
             page = const PlaceholderHomeScreen();
+            break;
+          case '/post-event':
+            page = PostEventPage();
+            break;
+          case '/upcoming-event':
+            page = UpcomingEventPage();
             break;
           default:
             page = const BudgetScreen();
