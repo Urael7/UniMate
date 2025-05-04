@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../authpages/signup.dart'; // Import the SignUpPage
 
 class LogoutPage extends StatefulWidget {
   const LogoutPage({super.key});
@@ -158,7 +159,12 @@ class _LogoutPageState extends State<LogoutPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Handle sign up
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpPage(),
+                        ),
+                      ); // Navigate to SignUpPage
                     },
                     child: const Text(
                       'Sign Up',

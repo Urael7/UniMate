@@ -20,11 +20,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white, // Changed background color to white
       body: Column(
         children: [
           Expanded(
-            flex: 1, // 50% height for image
+            flex: 1, // 50% height for the image
             child: Stack(
               children: [
                 PageView.builder(
@@ -36,24 +36,11 @@ class _HomePageState extends State<HomePage> {
                   },
                   itemCount: imagePaths.length,
                   itemBuilder: (context, index) {
-                    return Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Image.asset(imagePaths[index], fit: BoxFit.cover),
-                        if (index == 0)
-                          Container(
-                            alignment: Alignment.center,
-                            color: Colors.black45,
-                            child: const Text(
-                              'Welcome to Unimate',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                      ],
+                    return Image.asset(
+                      imagePaths[index],
+                      fit: BoxFit.cover, // Ensures the image fits well
+                      width: double.infinity,
+                      height: double.infinity,
                     );
                   },
                 ),
@@ -70,10 +57,10 @@ class _HomePageState extends State<HomePage> {
                         width: 10,
                         height: 10,
                         decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
+                          shape: BoxShape.circle,
                           color: _currentPage == index
-                              ? Colors.lightBlue
-                              : Colors.white24,
+                              ? Colors.blue
+                              : Colors.grey[300],
                         ),
                       ),
                     ),
@@ -83,10 +70,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            flex: 1, // 50% height for description
+            flex: 1, // 50% height for the card
             child: Container(
               padding: const EdgeInsets.all(24),
-              width: double.infinity,
+              width: double.infinity, // Make the card width equal to the image
               decoration: const BoxDecoration(
                 color: Color(0xFF6C63FF), // Updated background color
                 borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
@@ -106,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF5CB15A),
+                      backgroundColor: const Color(0xFF5CB15A), // Button background color
                       padding: const EdgeInsets.symmetric(
                         horizontal: 100,
                         vertical: 14,
@@ -116,11 +103,14 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/home1');
+                      Navigator.pushNamed(context, '/home1'); // Navigate to Home1Page
                     },
                     child: const Text(
                       'Next',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      style: TextStyle(
+                        color: Colors.white, // Button text color
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ],
