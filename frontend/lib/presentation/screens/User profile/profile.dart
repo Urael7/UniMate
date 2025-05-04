@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'edit_profile.dart'; // Import the EditProfilePage
+import '../Budget_Tracker/budget_home_page.dart'; // Import BudgetScreen
+import '../logout/logout.dart'; // Import LogoutPage
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -33,13 +35,37 @@ class ProfilePage extends StatelessWidget {
               leading: const Icon(Icons.home, color: Colors.blue),
               title: const Text('Dashboard'),
               onTap: () {
+                Navigator.pop(context); // Close the drawer
                 // Handle Dashboard navigation
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person, color: Colors.blue),
+              title: const Text('Profile'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfilePage()),
+                ); // Navigate to ProfilePage
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.attach_money, color: Colors.blue),
+              title: const Text('Budget Tracker'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BudgetScreen()),
+                ); // Navigate to BudgetScreen
               },
             ),
             ListTile(
               leading: const Icon(Icons.schedule, color: Colors.blue),
               title: const Text('Class Schedule'),
               onTap: () {
+                Navigator.pop(context); // Close the drawer
                 // Handle Class Schedule navigation
               },
             ),
@@ -47,6 +73,7 @@ class ProfilePage extends StatelessWidget {
               leading: const Icon(Icons.description, color: Colors.blue),
               title: const Text('Assignments'),
               onTap: () {
+                Navigator.pop(context); // Close the drawer
                 // Handle Assignments navigation
               },
             ),
@@ -54,6 +81,7 @@ class ProfilePage extends StatelessWidget {
               leading: const Icon(Icons.school, color: Colors.blue),
               title: const Text('Exams'),
               onTap: () {
+                Navigator.pop(context); // Close the drawer
                 // Handle Exams navigation
               },
             ),
@@ -61,20 +89,15 @@ class ProfilePage extends StatelessWidget {
               leading: const Icon(Icons.notifications, color: Colors.blue),
               title: const Text('Notifications'),
               onTap: () {
+                Navigator.pop(context); // Close the drawer
                 // Handle Notifications navigation
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.person, color: Colors.blue),
-              title: const Text('Profile'),
-              onTap: () {
-                // Handle Profile navigation
               },
             ),
             ListTile(
               leading: const Icon(Icons.folder, color: Colors.blue),
               title: const Text('Resources'),
               onTap: () {
+                Navigator.pop(context); // Close the drawer
                 // Handle Resources navigation
               },
             ),
@@ -83,7 +106,11 @@ class ProfilePage extends StatelessWidget {
               leading: const Icon(Icons.logout, color: Colors.red),
               title: const Text('Logout', style: TextStyle(color: Colors.red)),
               onTap: () {
-                // Handle Logout
+                Navigator.pop(context); // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LogoutPage()),
+                ); // Navigate to LogoutPage
               },
             ),
           ],

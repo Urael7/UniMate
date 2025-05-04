@@ -9,32 +9,33 @@ class Home1Page extends StatelessWidget {
       backgroundColor: const Color(0xFFF5F5F5),
       body: Column(
         children: [
-          // Back Arrow Icon
-          Padding(
-            padding: const EdgeInsets.only(top: 40, left: 10),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.black),
-                onPressed: () {
-                  Navigator.pop(context); // Go back to previous page
-                },
-              ),
-            ),
-          ),
           Expanded(
             flex: 1,
             child: Stack(
               children: [
+                // Background Image
                 Image.asset(
                   'assets/girl.jpg',
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: double.infinity,
                 ),
+
+                // Backward Arrow
                 Positioned(
-                  bottom:
-                      16, // Position the indicator at the bottom of the image
+                  top: 40,
+                  left: 10,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context); // Go back to the previous page
+                    },
+                  ),
+                ),
+
+                // Page Indicator
+                Positioned(
+                  bottom: 16, // Position the indicator at the bottom of the image
                   left: 0,
                   right: 0,
                   child: Row(
