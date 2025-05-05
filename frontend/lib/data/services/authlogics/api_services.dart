@@ -1,8 +1,9 @@
+// TODO Implement this library.
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String baseUrl = 'http://localhost:3000'; // Update if different
+  final String baseUrl = 'http://localhost:5000'; // Backend URL
 
   Future<String?> login(String username, String password) async {
     final url = Uri.parse('$baseUrl/api/auth/login');
@@ -15,9 +16,9 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      return data['token'];
+      return data['token']; // Return the token on successful login
     } else {
-      return null;
+      return null; // Return null if login fails
     }
   }
 }

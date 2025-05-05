@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/presentation/screens/dashboard/class_schedule.dart';
 import 'package:frontend/presentation/screens/dashboard/assignments.dart';
+import 'package:frontend/presentation/screens/dashboard/Exam_page/exam.dart';
+import 'package:frontend/presentation/screens/dashboard/notification.dart';
+import 'package:frontend/presentation/screens/dashboard/profile.dart';
+import 'package:frontend/presentation/screens/Budget_Tracker/budget_home_page.dart';
+import 'package:frontend/presentation/screens/dashboard/resource.dart';
+import 'package:frontend/presentation/screens/dashboard/logout/logout.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -23,6 +29,76 @@ class DashboardPage extends StatelessWidget {
             radius: 16,
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blue),
+              child: Text(
+                'Student Portal',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.dashboard),
+              title: Text('Dashboard'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/dashboard');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.assignment),
+              title: Text('Assignments'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/assignments');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.event),
+              title: Text('Exams'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/exam');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.notifications),
+              title: Text('Notifications'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/notification');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text('Profile'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/profile');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.attach_money),
+              title: Text('Budget Tracker'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/budget');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.folder),
+              title: Text('Resources'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/resource');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/logout');
+              },
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -172,76 +248,6 @@ class DashboardPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
-              child: Text(
-                'Student Portal',
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.dashboard),
-              title: Text('Dashboard'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/dashboard');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.schedule),
-              title: Text('Class Schedule'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/class-schedule');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.assignment),
-              title: Text('Assignments'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/assignments');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.event),
-              title: Text('Exams'),
-              onTap: () {
-                Navigator.pop(context); // Close drawer
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.notifications),
-              title: Text('Notifications'),
-              onTap: () {
-                Navigator.pop(context); // Close drawer
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Profile'),
-              onTap: () {
-                Navigator.pop(context); // Close drawer
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.folder),
-              title: Text('Resources'),
-              onTap: () {
-                Navigator.pop(context); // Close drawer
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-              onTap: () {
-                Navigator.pop(context); // Close drawer
-              },
             ),
           ],
         ),

@@ -1,16 +1,43 @@
 import 'package:flutter/material.dart';
-import '../User profile/profile.dart'; // Import ProfilePage
-import '../Budget_Tracker/budget_home_page.dart'; // Import BudgetScreen
+import '../profile.dart'; // Import ProfilePage
+import '../../Budget_Tracker/budget_home_page.dart'; // Import BudgetScreen
 import '../logout/logout.dart'; // Import LogoutPage
-import 'upload_resource.dart'; // Import UploadResourcePage
+import '../resource.dart'; // Import ResourcePage
 
-class ResourcePage extends StatelessWidget {
-  const ResourcePage({super.key});
+class ExamPage extends StatelessWidget {
+  const ExamPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final exams = [
+      {
+        'subject': 'Mathematics',
+        'date': 'Wed, March 25, 2025',
+        'time': '9:00 AM - 11:00 AM',
+        'location': 'Block 57',
+        'teacher': 'Dr. Alex',
+        'topic': 'Chapter 1-2',
+      },
+      {
+        'subject': 'Physics',
+        'date': 'Thu, March 26, 2025',
+        'time': '1:00 PM - 3:00 PM',
+        'location': 'Block 42',
+        'teacher': 'Dr. Smith',
+        'topic': 'Chapter 3-4',
+      },
+      {
+        'subject': 'Chemistry',
+        'date': 'Fri, March 27, 2025',
+        'time': '10:00 AM - 12:00 PM',
+        'location': 'Block 12',
+        'teacher': 'Dr. Johnson',
+        'topic': 'Chapter 5-6',
+      },
+    ];
+
     return Scaffold(
-      backgroundColor: const Color(0xFFD4D4D4), // Set scaffold background color
+      backgroundColor: const Color(0xFFF3F4F6), // Body background color
       drawer: Drawer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,14 +91,6 @@ class ResourcePage extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.schedule, color: Colors.blue),
-              title: const Text('Class Schedule'),
-              onTap: () {
-                Navigator.pop(context); // Close the drawer
-                // Handle Class Schedule navigation
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.description, color: Colors.blue),
               title: const Text('Assignments'),
               onTap: () {
@@ -84,7 +103,10 @@ class ResourcePage extends StatelessWidget {
               title: const Text('Exams'),
               onTap: () {
                 Navigator.pop(context); // Close the drawer
-                // Handle Exams navigation
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ExamPage()),
+                ); // Navigate to ExamPage
               },
             ),
             ListTile(
@@ -100,7 +122,10 @@ class ResourcePage extends StatelessWidget {
               title: const Text('Resources'),
               onTap: () {
                 Navigator.pop(context); // Close the drawer
-                // Handle Resources navigation
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ResourcePage()),
+                ); // Navigate to ResourcePage
               },
             ),
             const Spacer(),
@@ -144,9 +169,9 @@ class ResourcePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Resource Header
+            // Exam Header
             const Text(
-              'Resources',
+              'Exam Timetable',
               style: TextStyle(
                 fontSize: 24,
                 color: Colors.black,
@@ -155,10 +180,10 @@ class ResourcePage extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             const Text(
-              'Access and share study materials and resources',
+              'View your upcoming exams and prepare accordingly',
               style: TextStyle(
                 fontSize: 14,
-                color: Color(0xFF6B7280),
+                color: Color(0xFF6B7280), // Silver color
               ),
             ),
             const SizedBox(height: 16),
@@ -177,7 +202,7 @@ class ResourcePage extends StatelessWidget {
                     // Search Bar
                     TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'Search resources...',
+                        hintText: 'Search exams...',
                         hintStyle: const TextStyle(color: Colors.grey),
                         prefixIcon: const Icon(Icons.search, color: Colors.grey),
                         border: OutlineInputBorder(
@@ -194,62 +219,29 @@ class ResourcePage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        OutlinedButton(
+                        OutlinedButton.icon(
                           onPressed: () {},
-                          style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: Colors.grey),
-                          ),
-                          child: const Text(
+                          icon: const Icon(Icons.arrow_drop_down, color: Colors.grey),
+                          label: const Text(
                             'All Subjects',
                             style: TextStyle(color: Colors.grey),
                           ),
-                        ),
-                        OutlinedButton(
-                          onPressed: () {},
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: Colors.grey),
                           ),
-                          child: const Text(
-                            'All Types',
-                            style: TextStyle(color: Colors.grey),
-                          ),
                         ),
-                        OutlinedButton(
+                        OutlinedButton.icon(
                           onPressed: () {},
+                          icon: const Icon(Icons.calendar_today, color: Colors.blue),
+                          label: const Text(
+                            'List',
+                            style: TextStyle(color: Colors.blue),
+                          ),
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: Colors.grey),
-                          ),
-                          child: const Text(
-                            'Upload Date',
-                            style: TextStyle(color: Colors.grey),
                           ),
                         ),
                       ],
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Upload Resource Button
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const UploadResourcePage(),
-                          ),
-                        ); // Navigate to UploadResourcePage
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      icon: const Icon(Icons.upload, color: Colors.white),
-                      label: const Text(
-                        'Upload Resource',
-                        style: TextStyle(color: Colors.white),
-                      ),
                     ),
                   ],
                 ),
@@ -257,86 +249,88 @@ class ResourcePage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Resource List Card
-            Card(
-              color: Colors.white,
-              elevation: 1,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Header Row
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          'Name',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text(
-                          'Subject',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Resource List
-                    ...List.generate(6, (index) {
-                      final resources = [
-                        {'name': 'Machine Learning', 'subject': 'Artificial Intelligence', 'type': 'pdf'},
-                        {'name': 'Data Structures', 'subject': 'Computer Science', 'type': 'doc'},
-                        {'name': 'Operating Systems', 'subject': 'Computer Science', 'type': 'pdf'},
-                        {'name': 'Web Development', 'subject': 'Software Engineering', 'type': 'doc'},
-                        {'name': 'Mobile App Development', 'subject': 'Software Engineering', 'type': 'pdf'},
-                        {'name': 'Algorithms', 'subject': 'Computer Science', 'type': 'doc'},
-                      ];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  resources[index]['type'] == 'pdf'
-                                      ? Icons.picture_as_pdf
-                                      : Icons.description,
-                                  color: resources[index]['type'] == 'pdf'
-                                      ? Colors.red
-                                      : Colors.blue,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  resources[index]['name']!,
-                                  style: const TextStyle(color: Colors.black),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              resources[index]['subject']!,
-                              style: const TextStyle(color: Colors.black54),
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
-                  ],
+            // Exam Cards
+            ...exams.map((exam) {
+              return Card(
+                color: Colors.white,
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
                 ),
-              ),
-            ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        exam['subject']!,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          const Icon(Icons.calendar_today, size: 16, color: Colors.grey),
+                          const SizedBox(width: 8),
+                          Text(exam['date']!, style: const TextStyle(color: Colors.black54)),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          const Icon(Icons.access_time, size: 16, color: Colors.grey),
+                          const SizedBox(width: 8),
+                          Text(exam['time']!, style: const TextStyle(color: Colors.black54)),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          const Icon(Icons.location_on, size: 16, color: Colors.grey),
+                          const SizedBox(width: 8),
+                          Text(exam['location']!, style: const TextStyle(color: Colors.black54)),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          const Icon(Icons.person, size: 16, color: Colors.grey),
+                          const SizedBox(width: 8),
+                          Text(exam['teacher']!, style: const TextStyle(color: Colors.black54)),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Topic',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          exam['topic']!,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
           ],
         ),
       ),

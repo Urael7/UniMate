@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'edit_profile.dart'; // Import the EditProfilePage
 import '../Budget_Tracker/budget_home_page.dart'; // Import BudgetScreen
-import '../logout/logout.dart'; // Import LogoutPage
+import 'logout/logout.dart'; // Import LogoutPage
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

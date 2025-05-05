@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../authpages/signup.dart'; // Import the SignUpPage
+import '../../authpages/signup.dart'; // Import the SignUpPage
 
 class LogoutPage extends StatefulWidget {
   const LogoutPage({super.key});

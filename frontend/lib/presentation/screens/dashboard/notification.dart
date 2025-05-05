@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../User profile/profile.dart'; // Import ProfilePage
+import 'profile.dart'; // Import ProfilePage
 import '../Budget_Tracker/budget_home_page.dart'; // Import BudgetScreen
-import '../logout/logout.dart'; // Import LogoutPage
-import '../Resource_page/resource.dart'; // Import ResourcePage
-import '../Exam_page/exam.dart'; // Import ExamPage
+import 'logout/logout.dart'; // Import LogoutPage
+import 'resource.dart'; // Import ResourcePage
+import 'Exam_page/exam.dart'; // Import ExamPage
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
